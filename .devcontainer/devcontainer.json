@@ -1,12 +1,21 @@
 {
-    "name": "Your project Dev",
-    "dockerFile": "Dockerfile",
+    "name": "Containerized Go Development Environment",
+    "build": { 
+        "dockerfile": "Dockerfile",
+        "args": { 
+            "REGISTRY_PATH": "${localEnv:REGISTRY_PATH}", 
+            "HTTPS_PROXY": "${localEnv:HTTPS_PROXY}",
+            "HTTP_PROXY": "${localEnv:HTTP_PROXY}",
+            "NO_PROXY": "${localEnv:NO_PROXY}" 
+        } 
+    },
     // "appPort": 8000,
     "extensions": [
         "golang.go"
     ],
     "settings": {
-        "go.useLanguageServer": true
+        "go.useLanguageServer": true,
+        "http.proxyStrictSSL": false
     },
     "postCreateCommand": "go mod download",
     "runArgs": [
