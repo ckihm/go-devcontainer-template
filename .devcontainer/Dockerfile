@@ -32,12 +32,12 @@ ENV GO111MODULE=on
 ###
 # You need to do have a seperate "apk add ca-certicates" in order to run "update-ca-certificates", 
 # but once done you can do "apk update ..."
-RUN apk add --no-cache \
-    ca-certificates
+#RUN apk add --no-cache \
+#    ca-certificates
     
 # adding CAs so that my curl trusts internal resources AND apk trusts https://dl-cdn.alpinelinux.org behind our proxy
-COPY ca/* /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+#COPY "C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt" /usr/local/share/ca-certificates/
+#RUN update-ca-certificates
 ###
 
 
