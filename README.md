@@ -1,4 +1,5 @@
-# godevcon
+# go-devcontainer-template
+
  Docker container as a full-featured VS Code Go development environment 
 
 # Private Registry
