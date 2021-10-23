@@ -1,57 +1,41 @@
-# available golang images https://hub.docker.com/_/golang
+ARG VARIANT="1.17-bullseye"
 ARG REGISTRY_PATH=
-ARG GO_VERSION=1.17
-ARG ALPINE_VERSION=3.14
 
-#
-# Internen Proxy festlegen
-#
-ARG HTTPS_PROXY=
-ARG HTTP_PROXY=
-ARG NO_PROXY=
+FROM ${REGISTRY_PATH}${REGISTRY_PATH:+/}vscode/devcontainers/go:0-${VARIANT}
 
-FROM ${REGISTRY_PATH}${REGISTRY_PATH:+/}golang:${GO_VERSION}-alpine${ALPINE_VERSION}
+# [Option] Enable non-root Docker access in container
+ARG ENABLE_NONROOT_DOCKER="true"
+# [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
+ARG USE_MOBY="true"
+# Enable new "BUILDKIT" mode for Docker CLI
+ENV DOCKER_BUILDKIT=1
 
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=1000
+COPY library-scripts/*.sh /tmp/library-scripts/
 
-ENV HTTP_PROXY=${HTTPS_PROXY} \
-    HTTPS_PROXY=${HTTP_PROXY} \
-    NO_PROXY=${NO_PROXY}
+RUN apt-get update \ 
+    # Install Docker Client
+    && /bin/bash /tmp/library-scripts/docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" \
+    # Install Github CLI
+    && /bin/bash /tmp/library-scripts/github-debian.sh \
+    # Clean up
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
-# Setup user
-RUN adduser $USERNAME -s /bin/sh -D -u $USER_UID $USER_GID && \
-    mkdir -p /etc/sudoers.d && \
-    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
-    chmod 0440 /etc/sudoers.d/$USERNAME
+# Bring hier eigentlich nichts. Wird bereits im obigen Base Image erledigt
+# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
+ARG NODE_VERSION="none"
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-ENV GO111MODULE=on
+# [Optional] Uncomment the next line to use go get to install anything else you need
+# RUN go get -x <your-dependency-or-tool>
 
-###
-# You need to do have a seperate "apk add ca-certicates" in order to run "update-ca-certificates", 
-# but once done you can do "apk update ..."
-#RUN apk add --no-cache \
-#    ca-certificates
-    
-# adding CAs so that my curl trusts internal resources AND apk trusts https://dl-cdn.alpinelinux.org behind our proxy
-#COPY "C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt" /usr/local/share/ca-certificates/
-#RUN update-ca-certificates
-###
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-
-# Install packages and Go language server
-RUN apk add -q --update --progress --no-cache git sudo openssh-client zsh
-RUN go get -v golang.org/x/tools/gopls@latest 2>&1
-
-# Setup shell
-USER $USERNAME
-RUN sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended &> /dev/null
-ENV ENV="/home/$USERNAME/.ashrc" \
-    ZSH=/home/$USERNAME/.oh-my-zsh \
-    EDITOR=vi \
-    LANG=en_US.UTF-8
-RUN printf 'ZSH_THEME="robbyrussell"\nENABLE_CORRECTION="false"\nplugins=(git copyfile extract colorize dotenv encode64 golang)\nsource $ZSH/oh-my-zsh.sh' > "/home/$USERNAME/.zshrc"
-RUN echo "exec `which zsh`" > "/home/$USERNAME/.ashrc"
-#USER root
+# Setting the ENTRYPOINT to docker-init.sh will configure non-root access 
+# to the Docker socket. The script will also execute CMD as needed.
+ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+CMD [ "sleep", "infinity" ]
