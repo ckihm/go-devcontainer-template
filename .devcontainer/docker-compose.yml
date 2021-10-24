@@ -6,9 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VARIANT: "1.17-bullseye"
+        VERSION:
         REGISTRY_PATH: "${REGISTRY_PATH}"
-        NODE_VERSION: "none"
 
     init: true
     volumes:
