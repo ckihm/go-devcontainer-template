@@ -52,14 +52,42 @@ Design and user documents (in addition to your godoc generated documentation).
 
 See the [`/docs`](docs/README.md) directory for examples.
 
+### Putting it all together in go
+
+- Only the above listed top-level directories
+- Group by context, not generic functionality (DDD Boundet Context)
+- Dependencies: own packages (Hexagonal Architecture)
+- Mocks: shared subpackage
+- All other project files (fixtures, resources, docx, Docker, ...): root dir of your project
+- Main package initialises and ties everything together
+- Avoid global scope and init()
+
 ### References
+- [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0). 
+    - [Example Project](https://github.com/katzien/go-structure-examples)
+    - [Slides](https://github.com/katzien/talks/blob/master/how-do-you-structure-your-apps/gowayfest2.0-2018-09-28/slides.pdf)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
 - [Simple Go project layout with modules](https://eli.thegreenplace.net/2019/simple-go-project-layout-with-modules/)
 - [`I'll take pkg over internal`](https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/)
 - [GopherCon EU 2018: Peter Bourgon - Best Practices for Industrial Programming](https://www.youtube.com/watch?v=PTE4VJIdHPg)
-- [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0)
+- https://github.com/marcusolsson/goddd
 
-### ToDo
+
+## Development Environment
+
+## Build Environment
+
+### Reference
+- https://github.com/thockin/go-build-template
+
+## Naming
+
+- Choose package names that suggest well what can be expected inside. Communicate what they provide, as opposed to what they contain.
+- Avoid generic names like util, common etc.
+- Follow the usual go conventions https://talks.golang.org/2014/names.slide
+- Avoid stutter (e.g. strings.Reader not strings.StringReader)
+
+## ToDo
 - Differentiate between standard and library project layouts
 
 ## Private Registry
