@@ -1,4 +1,4 @@
-# go-devcontainer-template
+# Go Project Template
 
  Docker container as a full-featured VS Code Go development environment 
 
@@ -74,6 +74,13 @@ See the [`/docs`](docs/README.md) directory for examples.
 
 
 ## Development Environment
+
+### Environment Variables
+GIT_EMAIL
+GIT_USER
+REGISTRY_PATH
+
+To make it more convenient, add the environment variables to .profile inside your wsl linux distribution, so that we don’t need to configure it every time a new session is created
 
 ## Build Environment
 

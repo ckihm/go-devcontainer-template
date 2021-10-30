@@ -32,7 +32,7 @@
 	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "docker --version",
+	"postCreateCommand": "git config --global user.email \"${localEnv:GIT_EMAIL}\" && git config --global user.name \"${localEnv:GIT_USER}\"",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
