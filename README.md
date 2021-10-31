@@ -79,6 +79,18 @@ Linux files for a running WSL distro are located at \\wsl$\<distro_name>
 
 ### SSH Key
 
+The solution is to edit or create ~/.ssh/config (OpenSSH docs for config and Configuring the Location of Identity Keys) to contain the following:
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github-key
+Do not edit line 3 to reflect your own username. The username should be git (see github docs).
+
+Edit line 4 to reflect the location of your key.
+
+If you already have a config file, it would be worthwhile having a look at what's there before futzing around. It never hurts to make a copy before editing.
+
 #### Windows Host
 
 Enabling SSH Agent using PowerShell
