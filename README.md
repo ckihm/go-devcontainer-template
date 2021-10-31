@@ -73,36 +73,48 @@ See the [`/docs`](docs/README.md) directory for examples.
 - https://github.com/marcusolsson/goddd
 
 
-## Development Environment
+## WSL 2 Linux files
 
 Linux files for a running WSL distro are located at \\wsl$\<distro_name>
 
-### SSH Key
+## Setting up SSH on WSL
 
-The solution is to edit or create ~/.ssh/config (OpenSSH docs for config and Configuring the Location of Identity Keys) to contain the following:
+Open your WSL System (e.g. Ubuntu) and follow the lixus specific intructions to generate and add ssh key files:
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+In addition create ~/.ssh/config (OpenSSH docs for config and Configuring the Location of Identity Keys) to contain the following:
 
 Host github.com
   HostName github.com
   User git
   IdentityFile ~/.ssh/github-key
+
 Do not edit line 3 to reflect your own username. The username should be git (see github docs).
 
 Edit line 4 to reflect the location of your key.
 
-If you already have a config file, it would be worthwhile having a look at what's there before futzing around. It never hurts to make a copy before editing.
 
-#### Windows Host
+## Setting up SSH on Windows
 
-Enabling SSH Agent using PowerShell
-PowerShell should be run as Administrator to be able to execute the below steps
+If you also want to use ssh from your Windows Host machine, you have to enable the SSH Agent. Enabling SSH Agent using PowerShell requires to run the shell as Administrator to be able to execute the below steps
 
 Set-Service -Name ssh-agent -StartupType Automatic
 Set-Service -Name ssh-agent -Status Running
 
-#### WSL OS
-
-Open your WSL System (e.g. Ubuntu) and follow the lixus specific intructions to generate and add ssh key files:
+Now follow the windows instructions as described here:
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+In addition create ~/.ssh/config (OpenSSH docs for config and Configuring the Location of Identity Keys) to contain the following:
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github-key
+
+Do not edit line 3 to reflect your own username. The username should be git (see github docs).
+
+Edit line 4 to reflect the location of your key.
+
 
 ### Environment Variables
 GIT_EMAIL
