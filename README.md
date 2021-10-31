@@ -78,6 +78,17 @@ See the [`/docs`](docs/README.md) directory for examples.
 Linux files for a running WSL distro are located at \\wsl$\<distro_name>
 
 ### SSH Key
+
+#### Windows Host
+
+Enabling SSH Agent using PowerShell
+PowerShell should be run as Administrator to be able to execute the below steps
+
+Set-Service -Name ssh-agent -StartupType Automatic
+Set-Service -Name ssh-agent -Status Running
+
+#### WSL OS
+
 Open your WSL System (e.g. Ubuntu) and follow the lixus specific intructions to generate and add ssh key files:
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
