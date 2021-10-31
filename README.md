@@ -75,6 +75,12 @@ See the [`/docs`](docs/README.md) directory for examples.
 
 ## Development Environment
 
+Linux files for a running WSL distro are located at \\wsl$\<distro_name>
+
+### SSH Key
+Open your WSL System (e.g. Ubuntu) and follow the lixus specific intructions to generate and add ssh key files:
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
 ### Environment Variables
 GIT_EMAIL
 GIT_USER
