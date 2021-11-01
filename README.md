@@ -72,6 +72,11 @@ See the [`/docs`](docs/README.md) directory for examples.
 - [GopherCon EU 2018: Peter Bourgon - Best Practices for Industrial Programming](https://www.youtube.com/watch?v=PTE4VJIdHPg)
 - https://github.com/marcusolsson/goddd
 
+# Container Development Environment
+
+## Service Name
+
+If you have more than one Dev Container running at the same time, you have to ensure to use different service names for each one. To do so adopt the value of the claim "service" in devcontainer.json and match it with the service name used in your docker-compose.yml file.
 
 ## WSL 2 Linux files
 
@@ -115,8 +120,12 @@ Do not edit line 3 to reflect your own username. The username should be git (see
 
 Edit line 4 to reflect the location of your key.
 
+## Delete all Docker Container/Images
 
-### Environment Variables
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+
+## Environment Variables
 GIT_EMAIL
 GIT_USER
 REGISTRY_PATH
