@@ -67,6 +67,7 @@ See the [`/docs`](docs/README.md) directory for examples.
     - [Example Project](https://github.com/katzien/go-structure-examples)
     - [Slides](https://github.com/katzien/talks/blob/master/how-do-you-structure-your-apps/gowayfest2.0-2018-09-28/slides.pdf)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+- [Standard Go Project Layout 2](https://github.com/thockin/go-build-template)
 - [Simple Go project layout with modules](https://eli.thegreenplace.net/2019/simple-go-project-layout-with-modules/)
 - [`I'll take pkg over internal`](https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/)
 - [GopherCon EU 2018: Peter Bourgon - Best Practices for Industrial Programming](https://www.youtube.com/watch?v=PTE4VJIdHPg)
